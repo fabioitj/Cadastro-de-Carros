@@ -1,0 +1,348 @@
+<html>
+    <head>
+
+        <script src="./../public/jquery-3.6.1.min.js"></script>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx" crossorigin="anonymous">
+        <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+       
+        <script src="https://kit.fontawesome.com/e20a230806.js" crossorigin="anonymous"></script>
+    </head>
+    <body>
+        <div class="container">
+            <div class="row">
+            
+                <div class="col-sm-12">
+                    <div class="box box-default">
+                        <div class="box-header with-border" style="display: flex; justify-content: space-between; align-items: center;">
+                            <h2 class="box-title" style="display: inline;">Cadastro de Carros</h2>
+                            <button type="button" class="btn btn-success pull-right" id="btnNewCar"><i class="fa fa-plus"></i></button>
+                        </div>
+                        <div class="box-body">
+                            <table id="tableCarro" class="table table-striped table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th>Marca</th>
+                                        <th>Modelo</th>
+                                        <th>Ano</th>
+                                        <th style="width: 64px;">Opções</th>
+                                    </tr>
+                                </thead>
+                                <tbody></tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+    </body>
+
+    <div class="modal" tabindex="-1" role="dialog" id="modalCarro">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title">Novo carro</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <form role="form" id="formCarro">
+                <input type="hidden" id="input_id" hidden/>
+                <input type="hidden" id="type" hidden/>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-sm-12 form-group">
+                            <label for="input_marca">Marca</label>
+                            <select id="input_marca" name="marca" class="form-control">
+                                <option value="Toyota">Toyota</option>
+                                <option value="Volkswagen">Volkswagen</option>
+                                <option value="Honda">Honda</option>
+                                <option value="Ford">Ford</option>
+                                <option value="Chevrolet">Chevrolet</option>
+                            </select>
+                        </div>
+                        <div class="col-sm-12 form-group">
+                            <label>Modelo</label>
+                            <input type="text" maxlength="100" id="input_modelo" name="modelo" class="form-control"/>
+                        </div>
+                        <div class="col-sm-12 form-group">
+                            <label>Versão</label>
+                            <input type="text" maxlength="100" id="input_versao" name="versao" class="form-control"/>
+                        </div>
+                        <div class="col-sm-12 form-group">
+                            <label>Quilometragem</label>
+                            <input type="number" id="input_quilometragem" name="quilometragem" class="form-control"/>
+                        </div>
+                        <div class="col-sm-6 form-group">
+                            <label>Ano</label>
+                            <input type="number" id="input_ano" name="ano" class="form-control"/>
+                        </div>
+                        <div class="col-sm-6 form-group">
+                            <label>Preço</label>
+                            <input type="number" id="input_preco" name="preco" class="form-control"/>
+                        </div>
+                        <div class="col-sm-12 form-group">
+                            <label for="input_cor">Cor</label>
+                            <select id="input_cor" name="cor" class="form-control">
+                                <option value="Azul">Azul</option>
+                                <option value="Bege">Bege</option>
+                                <option value="Branco">Branco</option>
+                                <option value="Cinza">Cinza</option>
+                                <option value="Marrom">Marrom</option>
+                                <option value="Prata">Prata</option>
+                                <option value="Preto">Preto</option>
+                                <option value="Vermelho">Vermelho</option>
+                            </select>
+                        </div>
+                        <div class="col-sm-12 form-group">
+                            <label>Opcionais</label><br/>
+                            <input type="checkbox" id="input_airbag"/><label>&nbsp;AirBag</label><br/>
+                            <input type="checkbox" id="input_alarme"/><label>&nbsp;Alarme</label><br/>
+                            <input type="checkbox" id="input_ar_condicionado"/><label>&nbsp;Ar Condicionado</label><br/>
+                            <input type="checkbox" id="input_bancos_em_couro"/><label>&nbsp;Bancos em couro</label><br/>
+                            <input type="checkbox" id="input_computador_de_bordo"/><label>&nbsp;Computador de bordo</label><br/>
+                            <input type="checkbox" id="input_controle_automatico"/><label>&nbsp;Controle automático de velocidade</label><br/>
+                            <input type="checkbox" id="input_controle_tracao"/><label>&nbsp;Controle de tração</label><br/>
+                            <input type="checkbox" id="input_direcao_hidraulica"/><label>&nbsp;Direção hidráulica</label><br/>
+                            <input type="checkbox" id="input_freio_abs"/><label>&nbsp;Freio abs</label><br/>
+                            <input type="checkbox" id="input_rodas_de_ligas_leve"/><label>&nbsp;Rodas de liga leve</label><br/>
+                            <input type="checkbox" id="input_sensor_de_chuva"/><label>&nbsp;Sensor de chuva</label><br/>
+                            <input type="checkbox" id="input_sensor_de_estacionamento"/><label>&nbsp;Sensor de estacionamento</label><br/>
+                            <input type="checkbox" id="input_teto_solar"/><label>&nbsp;Teto solar</label><br/>
+                            <input type="checkbox" id="input_vidros_eletricos"/><label>&nbsp;Vidros elétricos</label><br/>
+                        </div>
+                        <div class="col-sm-12 form-group">
+                            <label>Blindado</label>
+                            <div class="col-sm-6" style="display: inline;">
+                                <input type="radio" name="blindado" id="radio_sim" value="S" /><label>&nbsp;Sim</label>
+                            </div>
+                            <div class="col-sm-6" style="display: inline;">
+                                <input type="radio" name="blindado" id="radio_nao" value="N" checked/><label>&nbsp;Não</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                  <button type="submit" class="btn btn-primary">Salvar</button>
+                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+                </div>
+            </form>
+          </div>
+        </div>
+      </div>
+
+    <script>
+        let listaDeCarros = [];
+
+        $(window).on("load", function(){
+            loadListaCarros();
+            refreshTableCars();
+        });
+
+        function loadListaCarros(){
+            listaDeCarros = JSON.parse(localStorage.getItem("listCar"));
+        }
+
+        function refreshTableCars() {
+            let html = "";
+            listaDeCarros.forEach(function(item, index){
+                html += `
+                        <tr>
+                            <td>${item.marca}</td>
+                            <td>${item.modelo}</td>
+                            <td>${item.ano}</td>
+                            <td style="display: flex; gap: 5px;">
+                                <button class="btn btn-info" onclick="editarCarro('${index}')" title="Editar Carro"><i class="fa fa-edit"></i></button>
+                                <button class="btn btn-danger" onclick="excluirCarro('${index}')" title="Excluir Carro"><i class="fa fa-remove"></i></button>
+                            </td>
+                        </tr>
+                        `;
+            });       
+
+            $("#tableCarro tbody").html(html);
+        }
+
+        function getCarroById(id){
+            return listaDeCarros[id];
+        }
+
+        function editarCarro(id){
+            let item = getCarroById(id);
+            if(item == "" || item == null || item == undefined){
+                alert("Esse registro não existe mais.")
+                return;
+            }
+
+            $("#type").val("U")
+            loadFields(item, id);
+            $("#modalCarro").modal("show");
+        }
+
+        function loadFields(item, id){
+            console.table(item);
+            $("#input_id").val(id);
+            $("#input_marca").val(item.marca);
+            $("#input_modelo").val(item.modelo);
+            $("#input_versao").val(item.versao);
+            $("#input_quilometragem").val(item.quilometragem);
+            $("#input_ano").val(item.ano);
+            $("#input_preco").val(item.preco);
+            $("#input_cor").val(item.cor);
+            $("#input_airbag").prop("checked", item.airbag);
+            $("#input_alarme").prop("checked", item.alarme);
+            $("#input_ar_condicionado").prop("checked", item.ar_condicionado);
+            $("#input_bancos_em_couro").prop("checked", item.bancos_em_couro);
+            $("#input_computador_de_bordo").prop("checked", item.computador_de_bordo);
+            $("#input_controle_automatico").prop("checked", item.controle_automatico);
+            $("#input_controle_tracao").prop("checked", item.controle_tracao);
+            $("#input_direcao_hidraulica").prop("checked", item.direcao_hidraulica);
+            $("#input_freio_abs").prop("checked", item.freio_abs);
+            $("#input_rodas_de_ligas_leve").prop("checked", item.rodas_de_ligas_leve);
+            $("#input_sensor_de_chuva").prop("checked", item.sensor_de_chuva);
+            $("#input_sensor_de_estacionamento").prop("checked", item.sensor_de_estacionamento);
+            $("#input_teto_solar").prop("checked", item.teto_solar);
+            $("#input_vidros_eletricos").prop("checked", item.vidros_eletricos);
+            if(item.blindado == "S")
+                $("#radio_sim").prop("checked", true);
+            else
+                $("#radio_nao").prop("checked", true);
+        }
+
+        function excluirCarro(id){
+            listaDeCarros.splice(id, 1);
+            refreshTableCars();
+        }
+
+        $("#btnNewCar").on("click", function(){
+            $("#type").val("I");
+
+            $("#modalCarro").modal("show");
+        });
+
+        $("#formCarro").submit(function(e){
+            e.preventDefault();
+
+            let dados = {
+                marca: $("#input_marca").val(),
+                modelo: $("#input_modelo").val(),
+                versao: $("#input_versao").val(),
+                quilometragem: $("#input_quilometragem").val(),
+                ano: $("#input_ano").val(),
+                preco: $("#input_preco").val(),
+                cor: $("#input_cor").val(),
+                airbag: $("#input_airbag").is(":checked"),
+                alarme: $("#input_alarme").is(":checked"),
+                ar_condicionado: $("#input_ar_condicionado").is(":checked"),
+                bancos_em_couro: $("#input_bancos_em_couro").is(":checked"),
+                computador_de_bordo: $("#input_computador_de_bordo").is(":checked"),
+                controle_automatico: $("#input_controle_automatico").is(":checked"),
+                controle_tracao: $("#input_controle_tracao").is(":checked"),
+                direcao_hidraulica: $("#input_direcao_hidraulica").is(":checked"),
+                freio_abs: $("#input_freio_abs").is(":checked"),
+                rodas_de_ligas_leve: $("#input_rodas_de_ligas_leve").is(":checked"),
+                sensor_de_chuva: $("#input_sensor_de_chuva").is(":checked"),
+                sensor_de_estacionamento: $("#input_sensor_de_estacionamento").is(":checked"),
+                teto_solar: $("#input_teto_solar").is(":checked"),
+                vidros_eletricos: $("#input_vidros_eletricos").is(":checked"),
+                blindado: $("input[type='radio']:checked").val()
+            }
+
+            let tipoRegistro = $("#type").val();
+
+            if(valida_dados(dados)){
+                if(tipoRegistro == "I"){
+                    listaDeCarros.push(dados);
+                    refreshTableCars();
+                    $("#modalCarro").modal("hide");
+                }
+                else if(tipoRegistro == "U"){
+                    let id = $("#input_id").val();
+                    listaDeCarros[id] = dados;
+                    refreshTableCars();
+                    $("#modalCarro").modal("hide");
+                }
+
+                localStorage.setItem("listCar", JSON.stringify(listaDeCarros));
+            }
+        });
+
+        $("#modalCarro").on("hidden.bs.modal", function(){
+            resetFields();
+        });
+
+        function resetFields(){
+            $("#input_id").val("");
+            $("#input_marca").val("");
+            $("#input_modelo").val("");
+            $("#input_versao").val("");
+            $("#input_quilometragem").val("");
+            $("#input_ano").val("");
+            $("#input_preco").val("");
+            $("#input_cor").val("");
+            $("#input_airbag").prop("checked", false);
+            $("#input_alarme").prop("checked", false);
+            $("#input_ar_condicionado").prop("checked", false);
+            $("#input_bancos_em_couro").prop("checked", false);
+            $("#input_computador_de_bordo").prop("checked", false);
+            $("#input_controle_automatico").prop("checked", false);
+            $("#input_controle_tracao").prop("checked", false);
+            $("#input_direcao_hidraulica").prop("checked", false);
+            $("#input_freio_abs").prop("checked", false);
+            $("#input_rodas_de_ligas_leve").prop("checked", false);
+            $("#input_sensor_de_chuva").prop("checked", false);
+            $("#input_sensor_de_estacionamento").prop("checked", false);
+            $("#input_teto_solar").prop("checked", false);
+            $("#input_vidros_eletricos").prop("checked", false);
+            $("#radio_nao").prop("checked", true);
+        }
+
+        function valida_dados(dados){
+
+            let htmlValidate = "";
+            if(isVazio(dados.marca))
+                htmlValidate += "Você precisa preencher a 'Marca'\n";
+
+            if(isVazio(dados.modelo))
+                htmlValidate += "Você precisa preencher a 'Modelo'\n";
+
+            if(isVazio(dados.versao))
+                htmlValidate += "Você precisa preencher a 'Versão'\n";
+
+            if(isVazio(dados.quilometragem))
+                htmlValidate += "Você precisa preencher a 'Quilometragem'\n";
+
+            if(isVazio(dados.ano))
+                htmlValidate += "Você precisa preencher a 'Ano'\n";
+
+            if(isVazio(dados.preco))
+                htmlValidate += "Você precisa preencher a 'Preço'\n";
+
+            if(isVazio(dados.cor))
+                htmlValidate += "Você precisa preencher a 'Cor'\n";
+
+            if(isVazio(htmlValidate))
+                return true;
+
+            alert(htmlValidate);
+            return false;
+
+        }
+
+        function isVazio(item){
+            if(item == null || item == "" || item == undefined)
+                return true;
+
+            return false;
+        }
+
+    </script>
+
+    <style>
+        .form-group{
+            margin-bottom: 10px;
+        }
+    </style>
+</html>
